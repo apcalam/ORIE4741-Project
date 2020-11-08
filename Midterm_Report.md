@@ -7,7 +7,7 @@ After cleaning the data, our dataset has 201392 rows and 24 columns. Of the 2131
 # Include a few histograms or other descriptive statistics about the data. How many features and examples are present? How much data is missing or corrupted? How can you tell? 
 
 ![Figure 1](/images/midterm/figure1.png)
-Figure 1:  Histogram of average fares. Each data point is an average fare across all flights from a given city to another, in one quarter of a given year, and the histogram shows the frequency of different average fares. Moreover, the average fare statistic has mean 217.7, median 208.4, and standard deviation 82.6. 
+Figure 1:  Histogram of average fares. Each data point is an average fare across all flights from a given city to another, in one quarter of a given year, and the histogram shows the frequency of different average fares. We excluded large outliers before constructing the plot, which would otherwise have a long, sparse tail. Moreover, the average fare statistic has mean 217.7, median 208.4, and standard deviation 82.6. 
 
 ![Figure 3](/images/midterm/figure3.png)
 Figure 2: Density of the large_ms feature in the dataset, which for each example represents the “Market share for the carrier with the largest market share” for the given trip in the given year and quarter. This statistic has mean 0.658, median 0.650, and standard deviation 0.225. This shows how a large fraction of trips in the dataset receive a majority of their service from a single airline. We hope to use this information to consider the stability of our price predictions, intuiting that if a single airline controls a particular trip, that trip's price may be more stable over time compared to a trip that is serviced by many different airlines. 
