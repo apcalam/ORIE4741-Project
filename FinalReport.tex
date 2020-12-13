@@ -114,7 +114,7 @@ when & Float64\\
 \end{table}
 \paragraph{Feature Set 2:} This feature set is in table 3. We include all of the columns, both numerical and nominal. We continue to treat the city and airport id's as numerical. Including all features allows us to compare to our previous models that use a smaller feature set to see if nominal data adds value. 
 
-\paragraph{Feature Set 3:} Finally, this feature set is also in table 3. We include all of the columns, treating the city and airport id's as nominal data. We aim see how our model performs treating city and airport id's as nominal and compare it to the results of treating them as numerical, in order to compare performance. 
+\paragraph{Feature Set 3:} Finally, this feature set is also in table 3. We include all of the columns, treating the city and airport id's as nominal data. We aim to see how our model performs treating city and airport id's as nominal and numerical, in order to compare performance. 
 \begin{table}[h!]
 \centering
 \begin{tabular}{ |p{3cm}||p{3cm}|  }
@@ -155,7 +155,7 @@ In addition to experimenting with regularization, loss functions, and feature su
 In total we trained 640 models each to select the best model for interpolation and extrapolation. 
 \begin{table*}[h!]
 \begin{center}
-\def\arraystretch{2} % 1 is the default, change whatever you need
+\def\arraystretch{2} 
 \begin{tabular}{ |c|c|c|c| } 
  \hline
  Architecture Name & Featurization & Optimization Objective & Learning Rate \\ 
@@ -269,7 +269,7 @@ For \textit{every} model selected to be included in the final evaluation, we ret
 \subsection{Findings}
 In table 4 we describe the architecture and hyperparameters of the best performing model architectures based on interpolation performance; in table 6, we show the interpolation and extrapolation performance of these models on held out data. Similarly, in table 5 we describe the architecture and hyperparameters of the best performing model architectures based on extrapolation performance; in table 7, we show the interpolation and extrapolation performance of these models on held out data. \\\\
 These results show that feature set three is the most informative, achieving the lowest MSE on both extrapolation and interpolation metrics. Further, for all feature sets we tried, quadratic loss is the best model for interpolation and quantile loss on the 0.75 quantile is the best model for extrapolation. The best models for extrapolation on all feature sets do not contain regularization, whereas for interpolation the best models for all feature sets (other than number one) included some quadratic regularization. \\\\
-Finally, these results show a clear benefit to tailoring model architecture selection based on knowledge of how a model will be used. Our best extrapolation-optimization-selected architecture (E3) significantly outperforms any interpolation-optimization-selected architecture on the extrapolation metric, despite the fact that all models architectures are retrained on the same dataset to report extrapolation performance. Similarly, our best interpolation-optimization-selected architecture (I3) significantly outperforms any extrapolation-optimization-selected architecture on the interpolation metric, despite the fact that all models architectures are retrained on the same dataset to report interpolation performance.
+Finally, these results show a clear benefit to tailoring model architecture selection based on knowledge of how a model will be used. Our best extrapolation-optimization-selected architecture (E3) significantly outperforms any interpolation-optimization-selected architecture on the extrapolation metric, despite the fact that all models architectures are retrained on the same dataset to report extrapolation performance. Similarly, our best interpolation-optimization-selected architecture (I3) significantly outperforms any extrapolation-optimization-selected architecture on the interpolation metric, despite the fact that all model architectures are retrained on the same dataset to report interpolation performance.
 
 \section{Error Analysis}
 We perform an error analysis on the best model in terms of the interpolation metric (I3) and the best model in terms of the extrapolation metric (E3). In Figure 3 we show the distribution of errors I3 makes on the interpolation metric, and in Figure 4 we show the distribution of errors E3 makes on the extrapolation metric. These histograms have a long tail with very low frequencies, which we truncate for ease of visualization. We also included a red line to indicate the standard deviation of the prices.\\\\
