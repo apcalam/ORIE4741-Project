@@ -14,18 +14,18 @@
 
 \section{Introduction}
 In our final project, we built a predictive model to determine the ideal price point of a domestic US flight traveling from point A to point B. Our goal was to develop a model that can be used from the perspective of an Airline company to determine the ideal price of airplane tickets to maximize profit while staying competitive in the market given the competition. Moreover, we hope that our findings not only help airlines price future flights, but also help consumers decide when and where to fly to maximize a trip within their budget.\\\\
-Though air travel may not be a mode of transportation that an individual considers on a daily basis, nevertheless, it inexplicably affects how people are connected and communicate across the nation. On a personal and current perspective, air travel and price tickets also determine when were are able to visit our families, return back to school, and travel across the country. From an economic standpoint, the airline industry constitutes a significant force within the U.S. economy: according to the FAA, “Aviation accounts for more than 5\% of our Gross Domestic Product.”$^{[1]}$ As an industry that many people rely on for work and personal means, domestic flights impact many people’s lives every day. Therefore, it is a vital task to understand how prices function within this industry: both to improve efficiency for these far reaching airlines and to help consumers understand pricing within the domestic flight market.\\\\
+Though air travel may not be a mode of transportation that an individual considers on a daily basis, nevertheless, it inexplicably affects how people are connected and communicate across the nation. On a personal and current perspective, air travel and price tickets also determine when were are able to visit our families, return back to school, and travel across the country. From an economic standpoint, the airline industry constitutes a significant force within the U.S. economy: according to the FAA, ?Aviation accounts for more than 5\% of our Gross Domestic Product.?$^{[1]}$ As an industry that many people rely on for work and personal means, domestic flights impact many people?s lives every day. Therefore, it is a vital task to understand how prices function within this industry: both to improve efficiency for these far reaching airlines and to help consumers understand pricing within the domestic flight market.\\\\
 From thorough analysis of historical plane ticket data as well as fitting multiple models to the processed data, we believe that our project can provide accurate predictions that can help both the airline industry and the individual consumer alike. Through an iterative design process, we discover two model architectures that effectively model this problem space and will allow both consumers and airlines to understand historical and future trends in domestic flight pricing. 
 
 
 \section{Datasets}
 \subsection{Exploring the data}
 
-Our project analyzes the dataset from the US Department of Transportation’s Domestic Airline Consumer Airfare Report from 2019$^{[2]}$. This dataset contains 213175 rows and 23 columns describing information for airport pair markets. Each row contains an origin airport and city, destination airport and city, year, time of year (quarter), average fare, average fare for the carrier with the largest market share, average fare for the lowest carrier, number of miles, passengers per day, and geocoded information.
+Our project analyzes the dataset from the US Department of Transportation?s Domestic Airline Consumer Airfare Report from 2019$^{[2]}$. This dataset contains 213175 rows and 23 columns describing information for airport pair markets. Each row contains an origin airport and city, destination airport and city, year, time of year (quarter), average fare, average fare for the carrier with the largest market share, average fare for the lowest carrier, number of miles, passengers per day, and geocoded information.
 
 \subsection{Data Cleaning}
 After cleaning and pre-processing, our resulting dataset contains 201392 rows and 24 columns.\\\\
-We create an additional row to the original 23 rows by constructing a ‘when’ column that combines the columns year with the financial quarter via the following formula: $when = year + (quarter - 1)/4$. \\\\
+We create an additional row to the original 23 rows by constructing a ?when? column that combines the columns year with the financial quarter via the following formula: $when = year + (quarter - 1)/4$. \\\\
 Of the 213175 original rows, 201392 rows have complete data without any missing values and we do not have any corrupted values. Since a significant majority of our data is complete, we decided to remove the rows with missing values rather than impute them. We have over 200,000 rows with complete data which maintains 95\% of the original data. Additionally, the rows with missing data included outlier flights from smaller towns or airlines where we cannot accurately impute the missing values from the rest of the data. These flights are priced very different compared to typical airlines and may not be helpful to our overall analysis.
 
  \begin{figure}[h]
@@ -61,13 +61,13 @@ We started with 24 columns in our original dataset:
 "Geocoded\_City1", 
 \\"Geocoded\_City2", "tbl1apk", "when"]
 \subsubsection{Dropping Features}
-We dropped some redundant or irrelevant columns at the start. The columns ["tbl", "tbl1apk”] held information on the table name from the database which is irrelevant to our task. ["Year", "quarter"] were already consolidated into the when column, as described in section 2.2. ["city1", "city2", "Geocoded\_City1", "Geocoded\_City2"] represent the names and geo-coded location of the origin and destination cities. This information is already captured by the id’s of the cities in the columns citymarketid\_1 and citymarketid\_2. ["airport\_1", "airport\_2"] encode the names of the origin and destination airports. This information is already captured by the id’s of the airports in the columns airportid\_1 and airportid\_2
+We dropped some redundant or irrelevant columns at the start. The columns ["tbl", "tbl1apk?] held information on the table name from the database which is irrelevant to our task. ["Year", "quarter"] were already consolidated into the when column, as described in section 2.2. ["city1", "city2", "Geocoded\_City1", "Geocoded\_City2"] represent the names and geo-coded location of the origin and destination cities. This information is already captured by the id?s of the cities in the columns citymarketid\_1 and citymarketid\_2. ["airport\_1", "airport\_2"] encode the names of the origin and destination airports. This information is already captured by the id?s of the airports in the columns airportid\_1 and airportid\_2
 \\\\
 In the end, we are left with these 14 to use for our model: ["citymarketid\_1", "citymarketid\_2", "airportid\_1", "airportid\_2", "nsmiles", "passengers", "fare", "carrier\_lg", "large\_ms", "fare\_lg", "carrier\_low", 
 \\"lf\_ms", "fare\_low", "when"].
 
 \subsubsection{Feature Sets}
-We had several different feature sets that we created to train our model on. We experimented with both the number of features included and how we pre-processed those features. Specifically, we explored treating the city and airport id’s as both numerical and nominal data. The id's for all of these columns are integers, but they are not continuous since they represent discrete cities and airports. We wanted to experiment with the trade-off of using them as numerical vs. nominal to see its impact on the accuracy of our model. In total we trained our model on 4 different sets of features to predict fare. 
+We had several different feature sets that we created to train our model on. We experimented with both the number of features included and how we pre-processed those features. Specifically, we explored treating the city and airport id?s as both numerical and nominal data. The id's for all of these columns are integers, but they are not continuous since they represent discrete cities and airports. We wanted to experiment with the trade-off of using them as numerical vs. nominal to see its impact on the accuracy of our model. In total we trained our model on 4 different sets of features to predict fare. 
 
 
 \paragraph{Feature Set 0:}
@@ -155,7 +155,7 @@ In addition to experimenting with regularization, loss functions, and feature su
 In total we trained 640 models each to select the best model for interpolation and extrapolation. 
 \begin{table*}[h!]
 \begin{center}
-\def\arraystretch{2} 
+\def\arraystretch{2} % 1 is the default, change whatever you need
 \begin{tabular}{ |c|c|c|c| } 
  \hline
  Architecture Name & Featurization & Optimization Objective & Learning Rate \\ 
@@ -179,10 +179,6 @@ $\frac{1}{n}\sum_{i=1}^n(y_i - w^Tx_i)^2+\frac{3}{4}\sum_{i=1}^d w_i^2$
 % \label{table:}
 \end{table*}
 
-% I0 = (feats\_0, 1/n*QuadLoss(), 0.75*OneReg(), .1); 
-% I1 = (feats\_1, 1/n*QuadLoss(), ZeroReg(), .7); 
-% I2 = (feats\_2, 1/n*QuadLoss(), 0.5 *QuadReg(), .3); 
-% I3 = (feats\_3, 1/n*QuadLoss(), 0.75*QuadReg(), .7).
 \begin{table*}[h!]
 \begin{center}
 \def\arraystretch{2}%  1 is the default, change whatever you need
@@ -209,10 +205,6 @@ $\frac{1}{n}\sum_{i=1}^n\frac{3}{4}(y_i - w^Tx_i)_+ + \frac{1}{4}(y_i - w^Tx_i)_
 % \label{table:}
 \end{table*}
 
-% E0 = (feats\_0, 1/n*QuantileLoss(quantile=0.75), ZeroReg(), .7)
-% E1 = (feats\_1, 1/n*QuantileLoss(quantile=0.75), ZeroReg(), .1)
-% E2 = (feats\_2, 1/n*QuantileLoss(quantile=0.75), ZeroReg(), .1)
-% E3 = (feats\_3, 1/n*QuantileLoss(quantile=0.75), ZeroReg(), .3)
 
 \subsection{Models for Interpolation}
 To select our first set of models, we optimized for interpolation. First we divided our dataset into a train and test set by randomly holding out 15\% of the dataset for the test set. Then, we trained all our candidate architectures using 15-fold cross validation on this training set to find the best performing models in terms of Mean Squared Error.\\\\
@@ -273,7 +265,7 @@ Finally, these results show a clear benefit to tailoring model architecture sele
 
 \section{Error Analysis}
 We perform an error analysis on the best model in terms of the interpolation metric (I3) and the best model in terms of the extrapolation metric (E3). In Figure 3 we show the distribution of errors I3 makes on the interpolation metric, and in Figure 4 we show the distribution of errors E3 makes on the extrapolation metric. These histograms have a long tail with very low frequencies, which we truncate for ease of visualization. We also included a red line to indicate the standard deviation of the prices.\\\\
-Based on these histograms, we see that in both cases the vast majority of errors are small—with high probability, our models will predict a price that is close to the correct price. In both graphs, we observe that the respective model achieves a root squared error of less 82.6, the standard deviation of the overall price distribution (see section 2.3), on a clear and overwhelming majority of examples. Therefore, we conclude that while our models are not perfect, we should be confident in model I3 for modeling historical prices, and we should be confident in model E3 for modeling future prices (if we expect future prices to align with past trends; this may not be currently true with the ongoing covid pandemic as the resulting global aviation shifts are not represented in this dataset).   
+Based on these histograms, we see that in both cases the vast majority of errors are small?with high probability, our models will predict a price that is close to the correct price. In both graphs, we observe that the respective model achieves a root squared error of less 82.6, the standard deviation of the overall price distribution (see section 2.3), on a clear and overwhelming majority of examples. Therefore, we conclude that while our models are not perfect, we should be confident in model I3 for modeling historical prices, and we should be confident in model E3 for modeling future prices (if we expect future prices to align with past trends; this may not be currently true with the ongoing covid pandemic as the resulting global aviation shifts are not represented in this dataset).   
 
 \begin{figure}[h]
 \centering
